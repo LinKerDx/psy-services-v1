@@ -1,0 +1,90 @@
+---
+import Facebook from "./Icons/Facebook.astro";
+import Instagram from "./Icons/Instagram.astro";
+import Twitter from "./Icons/Twitter.astro";
+import Pinterest from "./Icons/Pinterest.astro";
+import Menú from "./Icons/Menú.astro";
+
+const nav = [
+  { name: "Facebook", icon: Facebook, href: "/" },
+  { name: "Instagram", icon: Instagram, href: "/" },
+  { name: "Twitter", icon: Twitter, href: "/" },
+  { name: "Pinterest", icon: Pinterest, href: "/" },
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-10">
+  <nav
+    class="flex gap-3 justify-end items-center h-[50px] bg-[#252529] text-white px-4"
+  >
+    {
+      nav.map((btn) => (
+        <a href={btn.href}>
+          <btn.icon class="size-6 hover:scale-120 transition" />
+        </a>
+      ))
+    }
+  </nav>
+  <div
+    class="flex flex-cols justify-between items-center px-2 md:px-4 h-[50px] md:h-[80px] backdrop-blur-sm"
+  >
+    <a href="/" class="nav-link">
+      <h1 class="font-bold text-md md:text-3xl">
+        Mentes Sanas <small>by Eli-chan</small>
+      </h1>
+    </a>
+    <button class="md:hidden cursor-pointer"><Menú /></button>
+    <div
+      class="hidden md:inline-flex font-bold text-sm md:text-md flex flex-rows gap-2 md:gap-9"
+    >
+      <a href="/" class="nav-link"
+        ><span class="enlace hover:text-[#466C7F] transition-all">Inicio</span
+        ></a
+      >
+      <a href="/about" class="nav-link"
+        ><span class="enlace hover:text-[#466C7F] transition-all">Nosotros</span
+        ></a
+      >
+      <a href="/contacto" class="nav-link"
+        ><span class="enlace hover:text-[#466C7F] transition-all">Contacto</span
+        ></a
+      >
+    </div>
+  </div>
+</header>
+
+<script>
+  const handleLinks = () => {
+    const links = document.querySelectorAll(".nav-link, .social-link");
+    const currentPath = window.location.pathname;
+
+    links.forEach((link) => {
+      const targetPath = link.getAttribute("href");
+
+      // Resaltar enlace activo
+      link.classList.toggle("active", currentPath === targetPath);
+
+      // Evitar recarga si es la misma página
+      link.addEventListener("click", (e) => {
+        if (currentPath === targetPath) {
+          e.preventDefault();
+        }
+      });
+    });
+  };
+
+  // Astro emite este evento al cambiar rutas
+  window.addEventListener(
+    "astro:page-load",
+    () => {
+      handleLinks();
+    },
+    { once: false }
+  );
+  if (window.location.hostname === "localhost") {
+    setInterval(() => {
+      const linksExist = document.querySelectorAll(".nav-link").length > 0;
+      if (linksExist) handleLinks();
+    }, 500);
+  }
+</script>

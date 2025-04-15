@@ -1,0 +1,28 @@
+---
+import { serviciosPsicologia } from "../data/servicios";
+import ServiceCard from "./ServiceCard.astro";
+---
+
+<aside
+  id="servicios"
+  class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center p-4 bg-gray-100 rounded-lg shadow-md"
+>
+  <h2 class="text-3xl font-bold text-center mb-4 md:col-span-2 lg:col-span-3">
+    Servicios de Psicología
+  </h2>
+
+  {
+    serviciosPsicologia.map(
+      ({ id, nombre, img, modalidad, duracion, precio }) => (
+        <ServiceCard
+          id={id}
+          nombre={nombre}
+          img={img}
+          modalidad={modalidad}
+          duracion={duracion}
+          precio={precio}
+        />
+      )
+    )
+  }
+</aside>

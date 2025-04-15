@@ -1,0 +1,136 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { serviciosPsicologia } from "../../data/servicios";
+
+export async function getStaticPaths() {
+  return serviciosPsicologia.map(
+    ({
+      id,
+      nombre,
+      descripcion,
+      duracion,
+      precio,
+      img,
+      modalidad,
+      areasEnfoque,
+    }) => {
+      return {
+        params: { id },
+        props: {
+          id,
+          nombre,
+          descripcion,
+          duracion,
+          precio,
+          img,
+          modalidad,
+          areasEnfoque,
+        },
+      };
+    }
+  );
+}
+
+const {
+  id,
+  nombre,
+  descripcion,
+  duracion,
+  precio,
+  img,
+  modalidad,
+  areasEnfoque,
+} = Astro.props;
+/*
+const { id } = Astro.params;
+const servicio = serviciosPsicologia.find((servicio) => servicio.id === id);
+if (!servicio) return Astro.redirect("/404");
+*/
+if (!id) return Astro.redirect("/404");
+---
+
+<Layout>
+  <article
+    class="flex flex-col items-center justify-center gap-4 mt-[80px] md:mt-[130px] mb-[50px] p-2"
+  >
+    <a href="/#servicios">
+      <img
+        class="aspect-9/16 size-150 md:size-200 rounded-lg object-scale-down md:object-cover rounded-lg"
+        transition:name={`image-${id}`}
+        data-id={`card-image-${id}`}
+        fetchpriority="low"
+        src={img}
+        alt={`imagen de servicio de ${nombre}`}
+        decoding="async"
+      />
+    </a>
+    <h1>{nombre}</h1>
+    <p class="text-center md:text-right">{descripcion}</p>
+    <p>Duración: {duracion}</p>
+    <p>${precio} USD</p>
+    <div class="flex flex-row gap-2">
+      {
+        modalidad.map((modalidad) => (
+          <p class="badges rounded-lg border-2 border-black bg-[#0DC143] px-3">
+            {modalidad}
+          </p>
+        ))
+      }
+    </div>
+    <div class="flex flex-col md:flex-row gap-2">
+      {
+        areasEnfoque.map((area) => (
+          <span class="flex justify-center border-2 rounded-full px-2 py-1 text-[12px] md:text-xl">
+            {area}
+          </span>
+        ))
+      }
+    </div>
+    <a href="/#servicios">Regresar a servicios ←</a>
+  </article>
+</Layout>
+
+{
+  /*
+<Layout>
+  <article
+    class="flex flex-col items-center justify-center gap-4 mt-[80px] md:mt-[130px] mb-[50px] p-2"
+  >
+    <a href="/#servicios">
+      <img
+        class="aspect-9/16 size-150 md:size-200 rounded-lg object-scale-down md:object-cover rounded-lg"
+        transition:name={`image-${id}`}
+        data-id={`card-image-${id}`}
+        fetchpriority="low"
+        src={img}
+        alt={`imagen de servicio de ${servicio?.nombre}`}
+        decoding="async"
+      />
+    </a>
+    <h1>{servicio?.nombre}</h1>
+    <p class="text-center md:text-right">{servicio?.descripcion}</p>
+    <p>Duración: {servicio?.duracion}</p>
+    <p>${servicio?.precio} USD</p>
+    <div class="flex flex-row gap-2">
+      {
+        servicio?.modalidad.map((modalidad) => (
+          <p class="badges rounded-lg border-2 border-black bg-[#0DC143] px-3">
+            {modalidad}
+          </p>
+        ))
+      }
+    </div>
+    <div class="flex flex-col md:flex-row gap-2">
+      {
+        servicio?.areasEnfoque.map((area) => (
+          <span class="flex justify-center border-2 rounded-full px-2 py-1 text-[12px] md:text-xl">
+            {area}
+          </span>
+        ))
+      }
+    </div>
+    <a href="/#servicios">Regresar a servicios ←</a>
+  </article>
+</Layout>
+*/
+}
