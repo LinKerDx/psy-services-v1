@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import { serviciosPsicologia } from "../../data/servicios";
 
-export async function getStaticPaths() {
+/*export async function getStaticPaths() {
   return serviciosPsicologia.map(
     ({
       id,
@@ -41,14 +41,16 @@ const {
   modalidad,
   areasEnfoque,
 } = Astro.props;
-/*
+ if (!id) return Astro.redirect("/404");
+*/
+
 const { id } = Astro.params;
 const servicio = serviciosPsicologia.find((servicio) => servicio.id === id);
 if (!servicio) return Astro.redirect("/404");
-*/
-if (!id) return Astro.redirect("/404");
 ---
 
+{
+  /*
 <Layout>
   <article
     class="flex flex-col items-center justify-center gap-4 mt-[80px] md:mt-[130px] mb-[50px] p-2"
@@ -89,9 +91,9 @@ if (!id) return Astro.redirect("/404");
     <a href="/#servicios">Regresar a servicios ←</a>
   </article>
 </Layout>
+*/
+}
 
-{
-  /*
 <Layout>
   <article
     class="flex flex-col items-center justify-center gap-4 mt-[80px] md:mt-[130px] mb-[50px] p-2"
@@ -102,7 +104,7 @@ if (!id) return Astro.redirect("/404");
         transition:name={`image-${id}`}
         data-id={`card-image-${id}`}
         fetchpriority="low"
-        src={img}
+        src={servicio?.img}
         alt={`imagen de servicio de ${servicio?.nombre}`}
         decoding="async"
       />
@@ -132,5 +134,3 @@ if (!id) return Astro.redirect("/404");
     <a href="/#servicios">Regresar a servicios ←</a>
   </article>
 </Layout>
-*/
-}
