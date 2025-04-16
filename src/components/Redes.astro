@@ -1,0 +1,51 @@
+---
+const imgs = [
+  {
+    src: "/insImg/ins1.webp",
+    alt: "paisaje helado con vista de la via láctea",
+  },
+  {
+    src: "/insImg/ins2.webp",
+    alt: "mujer con vestido oscuro de espalda",
+  },
+  {
+    src: "/insImg/ins3.webp",
+    alt: "pisaje de un río, rodeado de un bosque",
+  },
+  {
+    src: "/insImg/ins4.webp",
+    alt: "Imagen de una mujer con estilo animación japonesa",
+  },
+  {
+    src: "/insImg/ins5.webp",
+    alt: "paisaje de una ciudad japonesa",
+  },
+  {
+    src: "/insImg/ins6.webp",
+    alt: "mujer bebiendo un café",
+  },
+  {
+    src: "/insImg/ins7.webp",
+    alt: "Mujer con un libro en la mano",
+  },
+  {
+    src: "/insImg/ins8.webp",
+    alt: "imagen de una reunion de amigos",
+  },
+];
+---
+
+<div
+  class="grid grid-cols-2 gap-2 max-w-[600px] px-8 py-2 place-items-center bg-linear-to-bl from-[#bacfdd] to-[#a1b7c6]"
+>
+  <h1 class="text-4xl text-center col-span-2">Sígueme en Instagram</h1>
+  {
+    imgs.map((img) => (
+      <img src={img.src} alt={img.alt} class="size-75 hover:size-110" />
+    ))
+  }
+  <p class="text-center col-span-2">
+    @mentessanas en Instagram para obtener actualizaciones sobre nuestros
+    servicios. Y contenido enfocado en la psicología.
+  </p>
+</div>

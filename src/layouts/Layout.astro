@@ -10,15 +10,13 @@ import { ClientRouter } from "astro:transitions";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/MentesSanasIcon.webp" />
     <title>Mentes Sanas</title>
     <ClientRouter />
   </head>
   <body>
     <Header />
-    <main>
-      <slot />
-    </main>
+    <slot />
     <Footer />
   </body>
 </html>
@@ -36,7 +34,7 @@ import { ClientRouter } from "astro:transitions";
   #toTop {
     animation: cambiar linear both;
     animation-timeline: scroll(root);
-    animation-range: 0 20%;
+    animation-range: 0 70%;
   }
 
   .Card-service:hover {
