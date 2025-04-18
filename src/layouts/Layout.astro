@@ -16,7 +16,9 @@ import { ClientRouter } from "astro:transitions";
   </head>
   <body>
     <Header />
-    <slot />
+    <main class="menu-open">
+      <slot />
+    </main>
     <Footer />
   </body>
 </html>
@@ -39,6 +41,10 @@ import { ClientRouter } from "astro:transitions";
 
   .Card-service:hover {
     animation: elastic-ultrasoft 0.6s ease-out;
+  }
+
+  main {
+    position: relative;
   }
 
   .Eli-chan-2:hover {

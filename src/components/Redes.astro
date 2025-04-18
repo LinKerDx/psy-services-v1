@@ -41,7 +41,13 @@ const imgs = [
   <h1 class="text-4xl text-center col-span-2">Sígueme en Instagram</h1>
   {
     imgs.map((img) => (
-      <img src={img.src} alt={img.alt} class="size-75 hover:size-110" />
+      <div class="p-2">
+        <img
+          src={img.src}
+          alt={img.alt}
+          class="size-50 md:size-75 hover:scale-110 transition"
+        />
+      </div>
     ))
   }
   <p class="text-center col-span-2">

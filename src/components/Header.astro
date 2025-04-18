@@ -4,6 +4,7 @@ import Instagram from "./Icons/Instagram.astro";
 import Twitter from "./Icons/Twitter.astro";
 import Pinterest from "./Icons/Pinterest.astro";
 import Menú from "./Icons/Menú.astro";
+import NavMenu from "./NavMenu.astro";
 
 const nav = [
   { name: "Facebook", icon: Facebook, href: "/" },
@@ -17,7 +18,7 @@ const nav = [
   <nav
     class="flex gap-3 items-center overflow-hidden h-[50px] justify-between bg-[#252529] text-white px-2 md:px-4"
   >
-    <div class="md:w-[120px] flex items-center">
+    <div class="w-[150px] md:w-[120px] flex items-center">
       <img src="/MentesSanas.webp" class="aspect-video rounded-full" />
     </div>
     <div class="flex gap-2 md:gap-4">
@@ -38,29 +39,25 @@ const nav = [
         Mentes Sanas <small>by Eli-chan</small>
       </h1>
     </a>
-    <button class="md:hidden cursor-pointer"><Menú /></button>
+    <button class="menu md:hidden cursor-pointer"><Menú /></button>
     <div
       class="hidden md:inline-flex font-bold text-sm md:text-md flex flex-rows gap-2 md:gap-9"
     >
-      <a href="/" class="nav-link"
-        ><span class="enlace hover:text-[#466C7F] transition-all">Inicio</span
-        ></a
-      >
-      <a href="/about" class="nav-link"
-        ><span class="enlace hover:text-[#466C7F] transition-all">Nosotros</span
-        ></a
-      >
-      <a href="/contacto" class="nav-link"
-        ><span class="enlace hover:text-[#466C7F] transition-all">Contacto</span
-        ></a
-      >
+      <NavMenu />
     </div>
+  </div>
+  <div
+    class="menu-desplegado hidden fixed h-full top-[100px] right-0 w-[200px] h-[90%] md:none flex flex-col py-5 items-center bg-[#252529] z-10"
+  >
+    <NavMenu />
   </div>
 </header>
 
 <script>
+  const $ = document.querySelectorAll;
+
   const handleLinks = () => {
-    const links = document.querySelectorAll(".nav-link, .social-link");
+    const links = $(".nav-link, .social-link");
     const currentPath = window.location.pathname;
 
     links.forEach((link) => {
@@ -86,10 +83,16 @@ const nav = [
     },
     { once: false }
   );
-  if (window.location.hostname === "localhost") {
-    setInterval(() => {
-      const linksExist = document.querySelectorAll(".nav-link").length > 0;
-      if (linksExist) handleLinks();
-    }, 500);
+  const vanishMain = document.querySelector(".menu-open");
+  const interactiveMenu = document.querySelector(".menu-desplegado");
+
+  const menu = document.querySelector(".menu");
+  if (menu) {
+    menu.addEventListener("click", () => {
+      vanishMain?.classList.toggle("active");
+      vanishMain?.classList.toggle("opacity-25");
+      interactiveMenu?.classList.toggle("hidden");
+      vanishMain?.setAttribute("inert", "");
+    });
   }
 </script>
