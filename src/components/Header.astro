@@ -47,52 +47,71 @@ const nav = [
     </div>
   </div>
   <div
-    class="menu-desplegado hidden fixed h-full top-[100px] right-0 w-[200px] h-[90%] md:none flex flex-col py-5 items-center bg-[#252529] z-10"
+    class="menu-desplegado hidden fixed h-full top-[100px] right-0 w-[200px] h-[90%] md:none bg-[#ADC2D1] dark:bg-[#252529] dark:text-white z-10"
   >
     <NavMenu />
   </div>
 </header>
 
 <script>
-  const $ = document.querySelectorAll;
+  document.addEventListener("astro:page-load", () => {
+    const $ = document.querySelectorAll;
 
-  const handleLinks = () => {
-    const links = $(".nav-link, .social-link");
-    const currentPath = window.location.pathname;
+    const updateNavState = () => {
+      const currentPath = window.location.pathname;
+      const prevState = JSON.parse(localStorage.getItem("navState") || "{}");
 
-    links.forEach((link) => {
-      const targetPath = link.getAttribute("href");
+      localStorage.setItem(
+        "navState",
+        JSON.stringify({
+          ...prevState,
+          currentPath,
+          lastVisited: prevState.currentPath || currentPath,
+        })
+      );
+    };
 
-      // Resaltar enlace activo
-      link.classList.toggle("active", currentPath === targetPath);
+    const handleLinks = () => {
+      const links = $(".nav-link, .social-link");
+      const currentPath = window.location.pathname;
 
-      // Evitar recarga si es la misma página
-      link.addEventListener("click", (e) => {
-        if (currentPath === targetPath) {
-          e.preventDefault();
-        }
+      links.forEach((link) => {
+        const targetPath = link.getAttribute("href");
+
+        // Resaltar enlace activo
+        link.classList.toggle("active", currentPath === targetPath);
+
+        // Evitar recarga si es la misma página
+        link.addEventListener("click", (e) => {
+          if (currentPath === targetPath) {
+            e.preventDefault();
+          }
+        });
       });
-    });
-  };
+    };
 
-  // Astro emite este evento al cambiar rutas
-  window.addEventListener(
-    "astro:page-load",
-    () => {
+    document.addEventListener("DOMContentLoaded", () => {
+      updateNavState();
       handleLinks();
-    },
-    { once: false }
-  );
-  const vanishMain = document.querySelector(".menu-open");
-  const interactiveMenu = document.querySelector(".menu-desplegado");
-
-  const menu = document.querySelector(".menu");
-  if (menu) {
-    menu.addEventListener("click", () => {
-      vanishMain?.classList.toggle("active");
-      vanishMain?.classList.toggle("opacity-25");
-      interactiveMenu?.classList.toggle("hidden");
-      vanishMain?.setAttribute("inert", "");
     });
-  }
+
+    // Astro emite este evento al cambiar rutas
+    window.addEventListener("astro:after-swap", () => {
+      updateNavState();
+      handleLinks();
+    });
+
+    const vanishMain = document.querySelector(".menu-open");
+    const interactiveMenu = document.querySelector(".menu-desplegado");
+
+    const menu = document.querySelector(".menu");
+    if (menu) {
+      menu.addEventListener("click", () => {
+        vanishMain?.classList.toggle("active");
+        vanishMain?.classList.toggle("opacity-25");
+        interactiveMenu?.classList.toggle("hidden");
+        vanishMain?.setAttribute("inert", "");
+      });
+    }
+  });
 </script>

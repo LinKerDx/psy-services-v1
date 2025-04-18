@@ -1,9 +1,30 @@
-<a href="/" class="nav-link"
-  ><span class="enlace hover:text-[#466C7F] transition-all">Inicio</span></a
->
-<a href="/about" class="nav-link"
-  ><span class="enlace hover:text-[#466C7F] transition-all">Nosotros</span></a
->
-<a href="/contacto" class="nav-link"
-  ><span class="enlace hover:text-[#466C7F] transition-all">Contacto</span></a
->
+---
+import InicioIcon from "./Icons/InicioIcon.astro";
+import NosotrosIcon from "./Icons/NosotrosIcon.astro";
+import ContactoIcon from "./Icons/ContactoIcon.astro";
+---
+
+<nav class="flex flex-col p-5 md:hidden text-[17px]">
+  <h2 class="text-2xl py-2">Enlaces</h2>
+  <a href="/" class="nav-link h-[32px] flex flex-row gap-2 items-center">
+    <InicioIcon class="size-5" />
+    <span class="enlace text-right hover:text-[#466C7F] transition-all"
+      >Inicio
+    </span>
+  </a>
+  <a href="/about" class="nav-link h-[32px] flex flex-row gap-2 items-center">
+    <NosotrosIcon class="size-5" />
+    <span class="enlace text-right hover:text-[#466C7F] transition-all"
+      >Nosotros
+    </span>
+  </a>
+  <a
+    href="/contacto"
+    class="nav-link h-[32px] flex flex-row gap-2 items-center"
+  >
+    <ContactoIcon class="size-5" />
+    <span class="enlace text-right hover:text-[#466C7F] transition-all"
+      >Contáctanos
+    </span>
+  </a>
+</nav>
