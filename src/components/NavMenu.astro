@@ -4,16 +4,16 @@ import NosotrosIcon from "./Icons/NosotrosIcon.astro";
 import ContactoIcon from "./Icons/ContactoIcon.astro";
 ---
 
-<nav class="flex flex-col p-5 md:hidden text-[17px]">
-  <h2 class="text-2xl py-2">Enlaces</h2>
+<nav class="flex flex-col md:flex-row gap-4 p-5 text-[17px]">
+  <h2 class="text-2xl py-2 md:hidden">Enlaces</h2>
   <a href="/" class="nav-link h-[32px] flex flex-row gap-2 items-center">
-    <InicioIcon class="size-5" />
+    <InicioIcon class="size-5 md:hidden" />
     <span class="enlace text-right hover:text-[#466C7F] transition-all"
       >Inicio
     </span>
   </a>
   <a href="/about" class="nav-link h-[32px] flex flex-row gap-2 items-center">
-    <NosotrosIcon class="size-5" />
+    <NosotrosIcon class="size-5 md:hidden" />
     <span class="enlace text-right hover:text-[#466C7F] transition-all"
       >Nosotros
     </span>
@@ -22,7 +22,7 @@ import ContactoIcon from "./Icons/ContactoIcon.astro";
     href="/contacto"
     class="nav-link h-[32px] flex flex-row gap-2 items-center"
   >
-    <ContactoIcon class="size-5" />
+    <ContactoIcon class="size-5 md:hidden" />
     <span class="enlace text-right hover:text-[#466C7F] transition-all"
       >Contáctanos
     </span>

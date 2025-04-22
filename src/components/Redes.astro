@@ -1,4 +1,6 @@
 ---
+import LeafletMap from "./LeafletMap.astro";
+
 const imgs = [
   {
     src: "/insImg/ins1.webp",
@@ -35,23 +37,49 @@ const imgs = [
 ];
 ---
 
-<div
-  class="grid grid-cols-2 gap-2 max-w-[600px] px-8 py-2 place-items-center bg-linear-to-bl from-[#bacfdd] to-[#a1b7c6]"
->
-  <h1 class="text-4xl text-center col-span-2">Sígueme en Instagram</h1>
-  {
-    imgs.map((img) => (
-      <div class="p-2">
-        <img
-          src={img.src}
-          alt={img.alt}
-          class="size-50 md:size-75 hover:scale-110 transition"
-        />
-      </div>
-    ))
-  }
-  <p class="text-center col-span-2">
-    @mentessanas en Instagram para obtener actualizaciones sobre nuestros
-    servicios. Y contenido enfocado en la psicología.
-  </p>
+<div class="flex flex-col 2lg:flex-row">
+  <div
+    class="flex flex-col gap-4 pb-4 md:px-8 md:py-2 items-center bg-[#F3F4F6] w-full"
+  >
+    <div class="bg-[#F3F4F6]">
+      <h1 class="text-4xl text-center">Ubícanos</h1>
+      <LeafletMap
+        latitude={25.71585417695133}
+        longitude={-100.31386472645443}
+        zoom={13}
+        tileLayer="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution="Map data © OpenStreetMap contributors"
+      />
+      <img
+        src="/terapia.webp"
+        alt="personas en terapia"
+        class="w-1/2 rounded-lg"
+      />
+    </div>
+  </div>
+  <div
+    class="flex flex-col w-full max-md:bg-linear-to-bl from-[#bacfdd] to-[#a1b7c6] md:bg-[#F3F4F6]"
+  >
+    <div
+      class="grid grid-cols-2 max-w-[600px] gap-2 px-8 py-2 bg-linear-to-bl from-[#bacfdd] to-[#a1b7c6] place-self-center 2lg:place-self-end"
+    >
+      <h1 class="text-4xl text-center col-span-2">Sígueme en Instagram</h1>
+      {
+        //1257px
+        imgs.map((img) => (
+          <div class="p-2">
+            <img
+              src={img.src}
+              alt={img.alt}
+              class="size-50 md:size-75 hover:scale-110 transition"
+            />
+          </div>
+        ))
+      }
+      <p class="text-center col-span-2">
+        @mentessanas en Instagram para obtener actualizaciones sobre nuestros
+        servicios. Y contenido enfocado en la psicología.
+      </p>
+    </div>
+  </div>
 </div>
