@@ -1,20 +1,34 @@
-/*
 
 import { ActionError, defineAction } from 'astro:actions';
 import { Resend } from 'resend';
-require('dotenv').config()
+import { z } from 'astro:schema';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+
+//cuando tenga un dominio
+
+const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 export const server = {
+    //Creacion del email template
+
     send: defineAction({
         accept: 'form',
-        handler: async () => {
+        input: z.object({
+            nombre: z.string().min(2).max(100),
+            apellido: z.string().min(2).max(100),
+            correo: z.string().email().toLowerCase(),
+            mensaje: z.string().min(2).max(1000),
+        }),
+        handler: async ({ nombre, apellido, correo, mensaje }) => {
+
+
+            // Validate the request body if needed  
+
             const { data, error } = await resend.emails.send({
-                from: 'Acme <onboarding@resend.dev>',
-                to: ['delivered@resend.dev'],
-                subject: 'Hello world',
-                html: '<strong>It works!</strong>',
+                from: 'onboarding@resend.dev',
+                to: ['omar_150596@hotmail.com'],
+                subject: `Hola desde el formulario de contacto de parte de ${correo}`,
+                html: `<p>Hola ${nombre} ${apellido}</p><p>${mensaje}</p>`,
             });
 
             if (error) {
@@ -23,10 +37,10 @@ export const server = {
                     message: error.message,
                 });
             }
-
             return data;
+
         },
     }),
 };
 
-*/
+

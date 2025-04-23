@@ -1,0 +1,10 @@
+---
+const { nombre, apellido, mensaje, email } = Astro.props;
+---
+
+<div>
+  <h1>Mensaje de {`${nombre} ${apellido}`}</h1>
+  <p>{mensaje}</p>
+  <p>¿Deseas contestarle?</p>
+  <a href=`mailto:${email}`><button>Contestar</button></a>
+</div>

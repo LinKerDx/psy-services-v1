@@ -1,7 +1,13 @@
 ---
+import { isInputError } from "astro:actions";
 import Layout from "../layouts/Layout.astro";
-export const prerender = true;
 import { actions } from "astro:actions";
+
+const result = Astro.getActionResult(actions.send);
+if (result?.data) {
+  return Astro.redirect("/");
+}
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 ---
 
 <Layout>
@@ -18,34 +24,84 @@ import { actions } from "astro:actions";
       <div class="md:max-w-[500px] flex flex-col gap-4 justify-center">
         <div class="flex flex-col">
           <label for="nombre">Nombre</label>
-          <input type="text" placeholder="Juan, Teresa, Ana...." />
+          <input
+            name="nombre"
+            type="text"
+            required
+            placeholder="Juan, Teresa, Ana...."
+            aria-describedby={inputErrors.nombre ? "nombre-error" : undefined}
+          />
+          {
+            inputErrors.nombre && (
+              <p class="text-red-500" id="nombre-error">
+                {inputErrors.nombre[0]}
+              </p>
+            )
+          }
         </div>
       </div>
       <div class="md:max-w-[500px] flex flex-col gap-4 justify-center">
         <div class="flex flex-col">
           <label for="apellido">Apellido</label>
-          <input type="text" placeholder="Sanchez, Rodriguez..." />
+          <input
+            name="apellido"
+            type="text"
+            required
+            placeholder="Sanchez, Rodriguez..."
+            aria-describedby={inputErrors.apellido
+              ? "apellido-error"
+              : undefined}
+          />
+          {
+            inputErrors.apellido && (
+              <p class="text-red-500" id="apellido-error">
+                {inputErrors.apellido[0]}
+              </p>
+            )
+          }
         </div>
       </div>
       <div class="md:max-w-[500px] flex flex-col gap-4 justify-center">
         <div class="flex flex-col">
           <label for="correo">Correo</label>
-          <input type="text" placeholder="ejemplo@ejemplo.com" />
+          <input
+            name="correo"
+            type="email"
+            required
+            placeholder="ejemplo@ejemplo.com"
+            aria-describedby={inputErrors.correo ? "email-error" : undefined}
+          />
+          {
+            inputErrors.correo && (
+              <p class="text-red-500" id="email-error">
+                {inputErrors.correo[0]}
+              </p>
+            )
+          }
         </div>
       </div>
       <div class="md:max-w-[500px] flex flex-col gap-4 justify-center">
         <div class="flex flex-col">
           <label for="mensaje">Déjanos un mensaje...</label>
           <textarea
-            name="textarea"
+            name="mensaje"
             rows="1"
             cols="21"
-            placeholder="Me gustaría..."></textarea>
+            required
+            placeholder="Me gustaría..."
+            aria-describedby={inputErrors.mensaje ? "mensaje-error" : undefined}
+          ></textarea>
+          {
+            inputErrors.mensaje && (
+              <p class="text-red-500" id="mensaje-error">
+                {inputErrors.mensaje[0]}
+              </p>
+            )
+          }
         </div>
       </div>
       <button
         type="submit"
-        disabled
         class="inline col-span-2 cursor-pointer place-self-center border-2 border-black bg-[#0DC143] text-white rounded-lg hover:bg-[#fffff] px-6 py-2 h-[60px] w-[120px]"
         >Enviar</button
       >
