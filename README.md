@@ -1,48 +1,101 @@
-# Astro Starter Kit: Basics
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+This document provides a technical overview of the Mentes Sanas website, a psychology services platform built with Astro. The system offers information about psychological services, practitioner details, location information, and contact functionality for potential clients.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+For detailed information about the system configuration and deployment, see Architecture.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Purpose and Technology Stack
+The Mentes Sanas platform serves as a professional website for psychology services with the following core functionality:
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+Showcase of psychology services with detailed information pages
+Psychologist profile and background information
+Interactive location map and social media integration
+Contact form with server-side email processing
+The system is built on the following technology stack:
 
-## 🚀 Project Structure
+Technology	  Version	        Purpose
+Astro	          5.7.4	        Core framework for pages and routing
+Tailwind CSS	  4.1.4	        Styling and responsive design
+Leaflet.js	    1.9.4	        Interactive map functionality
+Resend	        4.3.0	        Email sending service
+Vercel	        8.1.3	        Deployment platform
+Sources: 
+package.json 1-25
+src/layouts/Layout.astro 1-34
 
-Inside of your Astro project, you'll see the following folders and files:
+System Architecture
+The Mentes Sanas website follows a component-based architecture using Astro's page and component structure.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+High-Level Architecture Diagram
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+![image](https://github.com/user-attachments/assets/3f1942f3-b0ae-41dc-8c47-b022f04e57eb)
 
-## 🧞 Commands
+Page Structure and Component Hierarchy
+The website is organized around a set of pages that import and compose various components.
 
-All commands are run from the root of the project, from a terminal:
+Page Structure Diagram
+![image](https://github.com/user-attachments/assets/20850134-a1e9-4ae3-be2d-12c74887ccac)
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+Sources: 
+src/pages/index.astro 1-13
+src/pages/about.astro 1-46
+src/layouts/Layout.astro 8-34
 
-## 👀 Want to learn more?
+Core Components
+Layout System
+The Layout.astro component provides the common structure for all pages, including:
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+HTML document structure
+Metadata and favicon
+Global styles
+Leaflet map library integration
+Header and Footer components
+Main content area with slot for page content
+CSS animations and responsive design styles
+![image](https://github.com/user-attachments/assets/eab67ebb-cfe5-447e-b8d9-05d5df535440)
+Sources: 
+src/layouts/Layout.astro 1-188
+
+Home Page Components
+The home page (index.astro) assembles three main components:
+
+Hero.astro - Hero section with introduction and call-to-action
+Servicios.astro - Services listing with service cards
+Redes.astro - Location map and social media integration
+This structure follows a common marketing website pattern, presenting key information in a sequence designed to engage visitors.
+![image](https://github.com/user-attachments/assets/503a502b-1c07-4c36-8a12-391ceb7d20e9)
+
+Sources: 
+src/pages/index.astro 1-13
+
+About Page
+The about page presents information about "Eliza-chan", the psychologist:
+
+Professional background and approach
+Personal interests and philosophy
+Styling with Tailwind CSS classes
+Responsive layout with different designs for mobile and desktop
+This page uses a responsive layout with different positioning for desktop and mobile views, displaying text alongside an image of the psychologist.
+
+Sources: 
+src/pages/about.astro 1-46
+
+Data Flow
+The following diagram illustrates data flow through the Mentes Sanas system:
+![image](https://github.com/user-attachments/assets/aa933de6-d934-4553-ac85-d5582f68a5a0)
+
+Sources: 
+package.json 11-18
+src/layouts/Layout.astro 14-23
+
+Styling and User Experience
+The site uses Tailwind CSS for styling, supplemented by custom CSS animations and interactions:
+
+CSS animations for hover effects (elastic-ultrasoft, squeeze, etc.)
+Responsive design with media queries for different screen sizes
+Custom styling for form elements (inputs, textareas)
+Background gradient effects and visual enhancements
+The styling approach combines utility-first Tailwind classes with custom global styles for specific animations and effects, maintaining a consistent visual identity.
+
+Sources: 
+src/layouts/Layout.astro 36-188
+
